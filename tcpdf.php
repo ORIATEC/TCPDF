@@ -5091,7 +5091,8 @@ class TCPDF {
 	 * @param string $valign text vertical alignment inside the cell. Possible values are:<ul><li>T : top</li><li>C : center</li><li>B : bottom</li></ul>
 	 * @public
 	 * @since 1.0
-	 * @see SetFont(), SetDrawColor(), SetFillColor(), SetTextColor(), SetLineWidth(), AddLink(), Ln(), MultiCell(), Write(), SetAutoPageBreak()
+	 * @see SetFont(), SetDrawColor(), SetFillColor(), SetTextColor(), SetLineWidth(), AddLink(), Ln(), MultiCell(), Write(), 
+SetAutoPageBreak()
 	 */
 	public function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M') {
 		$prev_cell_margin = $this->cell_margin;
@@ -6409,7 +6410,10 @@ class TCPDF {
 		// calculate maximum width for a single character on string
 		$chrw = $this->GetArrStringWidth($chars, '', '', 0, true);
 		array_walk($chrw, array($this, 'getRawCharWidth'));
-		$maxchwidth = max($chrw);
+		$maxchwidth = 0;
+		if (0 < count($chrw)) {
+			$maxchwidth = max($chrw);
+		}
 		// get array of chars
 		$uchars = TCPDF_FONTS::UTF8ArrayToUniArray($chars, $this->isunicode);
 		// get the number of characters
